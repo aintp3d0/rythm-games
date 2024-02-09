@@ -1,2 +1,1 @@
-# rythm-games
-Rythm Games
+# Rythm Games
