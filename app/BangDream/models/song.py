@@ -1,18 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .band import Band
 
-class Band(models.Model):
-    """ Game Bands
-    """
-    class Meta:
-        db_table = 'bd_band'
 
-    id = models.IntegerField(primary_key=True, editable=False)
-    name = models.CharField(max_length=100, null=False, blank=False)
-
-    def __str__(self):
-        return self.name
+__all__ = (
+    'Song',
+)
 
 
 class SongDifficulty(models.TextChoices):
@@ -43,3 +37,17 @@ class Song(models.Model):
 
     def __str__(self):
         return f"{self.name} :: {self.band}"
+
+
+class SongClearStats(models.TextChoices):
+    """ Cleared Stats
+    """
+    id = models.IntegerField(primary_key=True, editable=False)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    difficulty = models.CharField(
+        max_length=7,
+        choices=SongDifficulty.choices,
+        default=SongDifficulty.EXPERT,
+        null=False, blank=False
+    )
+    count = models.PositiveIntegerField()
