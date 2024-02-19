@@ -25,7 +25,7 @@ class Song(models.Model):
     class Meta:
         db_table = 'bd_song'
 
-    id = models.IntegerField(primary_key=True, editable=False)
+    id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=100, null=False, blank=False)
     max_difficulty = models.CharField(
         max_length=7,
@@ -39,10 +39,10 @@ class Song(models.Model):
         return f"{self.name} :: {self.band}"
 
 
-class SongClearStats(models.TextChoices):
+class SongClearStats(models.Model):
     """ Cleared Stats
     """
-    id = models.IntegerField(primary_key=True, editable=False)
+    id = models.AutoField(primary_key=True, editable=False)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     difficulty = models.CharField(
         max_length=7,
